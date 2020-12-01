@@ -21,27 +21,27 @@ def processImages(img_list, reference = []):
     if not reference:
         i = 0
         size_del = 0
-        del_list = []
+        del_list = dict()
         while (i < len(img_list)):
             j = i+1
             while (j < len(img_list)):
                 if (img_list[i].similarity_test(img_list[j])):
                     size_del += img_list[j].size
-                    del_list.append(img_list.pop(j))
+                    del_list[img_list[i]] = del_list.get(img_list[i], []) + [img_list.pop(j)]
                 else:
                     j += 1
             i += 1
         return size_del, del_list
     else:
         size_del = 0
-        del_list = []
+        del_list = dict()
         
         for ref in reference:
             i = 0
             while (i < len(img_list)):
                 if ref.similarity_test(img_list[i]):
                     size_del += img_list[i].size
-                    del_list.append(img_list.pop(i))
+                    del_list[ref] = del_list.get(ref, []) + [img_lost.pop(i)]
                 else:
                     i +=1
 
@@ -163,14 +163,18 @@ class ImageLibrary:
 '''
 if __name__ == "__main__":
     # assert len(sys.argv) == 2
-    # path = sys.argv[1]
+    path = "testdir"
     # start = time.perf_counter()
-    # size, img_list = processFolder(path)
+    size, img_list = processFolder(path)
     # end = time.perf_counter() - start
     # print(f'\nWalking through all folders, and hashing images took {round(end, 2)} seconds or {round(end/60, 2)} mins.')
     # num = len(img_list)
     start = time.perf_counter()
-    # size_del, del_list = processImages(img_list)
+    size_del, del_list = processImages(img_list)
+    for org in del_list.keys():
+        for item in del_list[org]:
+            print(f'Duplicate = {item} \t Original = {org}')
+        print('--------')
     # end = time.perf_counter() - start
     # print(f'\nComparing all hashes took {round(end, 2)} seconds or {round(end/60, 2)} mins.')
     # print(f"\nCurrent total size of images = {round(size, 2)} MBs")
@@ -185,18 +189,18 @@ if __name__ == "__main__":
     # else:
     #     print(f'\nDeletion aborted, no changes were made.')
     #lib = ImageLibrary(name = "test library", path = "testdir")
-    libs = loadLibraries()
-    if not libs:
-        print(f'No libraries found, try making one :)')
-    else:
-        print(f'The following libraries were found : ')
-        for lib in libs:
-            print(f'\"{lib.name}\"')
-    lib1 = ImageLibrary(name = "dubai library", path = "dubai")
-    end = time.perf_counter() - start
-    print(f'\nComparing all hashes took {round(end, 2)} seconds or {round(end/60, 2)} mins.')    
-    saveLib(lib1)
-    print(f'Saved {lib1.name} successfully.')
+    # libs = loadLibraries()
+    # if not libs:
+    #     print(f'No libraries found, try making one :)')
+    # else:
+    #     print(f'The following libraries were found : ')
+    #     for lib in libs:
+    #         print(f'\"{lib.name}\"')
+    # lib1 = ImageLibrary(name = "dubai library", path = "dubai")
+    # end = time.perf_counter() - start
+    # print(f'\nComparing all hashes took {round(end, 2)} seconds or {round(end/60, 2)} mins.')    
+    # saveLib(lib1)
+    # print(f'Saved {lib1.name} successfully.')
     # lib1 = libs[0]
     # print(lib1)
     # lib1.addFolder("test")

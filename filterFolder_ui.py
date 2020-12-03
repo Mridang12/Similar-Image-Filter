@@ -124,7 +124,6 @@ class Ui_filterFolderWindow(QtWidgets.QMainWindow):
 
     
     def confirmFolderEvent(self):
-        self.processFolderWin = Ui_processFolder(self.folderPath, self)
-        self.processFolderWin.show()
         self.hide()
+        self.processFolderWin = Ui_processFolder(self.folderPath, self)
         pass

@@ -18,6 +18,8 @@ from file_io import *
     Return : list of images that are similar
 '''
 def processImages(img_list, reference = []):
+    img_list = img_list[:]
+
     if not reference:
         i = 0
         size_del = 0

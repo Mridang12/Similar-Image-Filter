@@ -4,6 +4,7 @@ from filterFolder_ui import Ui_filterFolderWindow
 class Ui_OpenWindow(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
+        self.ParentWindow = None
         self.setupUi()
 
     def setupUi(self):

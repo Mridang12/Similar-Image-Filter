@@ -6,21 +6,30 @@ import pickle
 from distutils.dir_util import copy_tree
 import ntpath
 import image
-
+from PyQt5 import QtCore, QtGui, QtWidgets
 
 '''
     Input : Path to folder
     Returns : List of image wrapper objects populated with path and the colorhash of the image
 '''
-def processFolder(path):
+def processFolder(path, label = None):
     img_list = []
     size = 0
     for file in os.listdir(path):
         current_file = os.path.join(path, file)
+        print(current_file)
+        if label is not None:
+            x1, y1, w1, h1 = label.frameGeometry().getRect()
+            label.setText(f'Processing : {current_file}')
+            label.adjustSize()
+            x2, y2, w2, h2 = label.frameGeometry().getRect()
+            print(x1, y1, w1, h1)
+            x2 = x1 - (w2 - w1)/2
+            label.setGeometry(QtCore.QRect(x2, y2, w2, h2))
         if (current_file == path):
             continue
         if os.path.isdir(current_file):
-            s, l = processFolder(current_file)
+            s, l = processFolder(current_file, label)
             size += s*(1024**2)
             img_list += l
             pass

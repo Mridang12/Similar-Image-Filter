@@ -12,19 +12,33 @@ What it does :-
 
 -- Groups images based on the similarity of their perceptual hashes.
 
+
 Dependencies :-
+
 -- numpy
+
 -- scipy
+
 -- PIL
+
 -- PyQt5
 
+
 Usage :-
+
 python3  openWindow.py
 
+
+
 File Description :-
+
 -- file_io.py : Helper functions for scanning image files recursively through a folder.
+
 -- image.py : Image functions for calculating perceptual hash and grouping.
+
 -- openWindow.py, filterFolder_ui.py, photoSelector_ui.py : PyQt5 python files for GUI.
+
+
 
 Screenshots :- 
 

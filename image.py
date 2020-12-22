@@ -118,17 +118,14 @@ class ImageLibrary:
         self.scan()
         del_size, del_list = self.process()
         if len(del_list) == 0:
-            #prompt everything unique
             print(f"All {len(self.img_list)} images in library \"{self.name}\" found to be unique!")
             pass
         else:
             if (takePrompt(self.size, len(del_list) + len(self.img_list), del_size, len(del_list),del_list, msg = f"For library \"{self.name}\", Do you want to delete or keep similar duplicates ?\n\t Enter yes to delete : ")):
                 self.size -= del_size
                 deleteImageList(del_list)
-                #prompt deleted
             else:
                 self.img_list += del_list
-                #prompt aborted
             
 
     def addFolder(self, path):
@@ -159,53 +156,4 @@ class ImageLibrary:
         return string
 
         
-
-'''
-    Driver to test code
-'''
-if __name__ == "__main__":
-    # assert len(sys.argv) == 2
-    path = "testdir"
-    # start = time.perf_counter()
-    size, img_list = processFolder(path)
-    # end = time.perf_counter() - start
-    # print(f'\nWalking through all folders, and hashing images took {round(end, 2)} seconds or {round(end/60, 2)} mins.')
-    # num = len(img_list)
-    start = time.perf_counter()
-    size_del, del_list = processImages(img_list)
-    for org in del_list.keys():
-        for item in del_list[org]:
-            print(f'Duplicate = {item} \t Original = {org}')
-        print('--------')
-    # end = time.perf_counter() - start
-    # print(f'\nComparing all hashes took {round(end, 2)} seconds or {round(end/60, 2)} mins.')
-    # print(f"\nCurrent total size of images = {round(size, 2)} MBs")
-    # print(f"Out of the {num} images, found {len(del_list)} images similar. Deleting them will save {round(size_del, 2)} MBs of storage")
-    # print(f"\nThis change cannot be reverted...")
-    # decision = input("\tProceed with deletion(y/n) : ")
-    # decision = decision.upper()
-    # if decision == 'Y' or decision == 'YES':
-    #     for img in del_list:
-    #         deleteImage(img)
-    #     print(f'\nImages deleted successfully...')
-    # else:
-    #     print(f'\nDeletion aborted, no changes were made.')
-    #lib = ImageLibrary(name = "test library", path = "testdir")
-    # libs = loadLibraries()
-    # if not libs:
-    #     print(f'No libraries found, try making one :)')
-    # else:
-    #     print(f'The following libraries were found : ')
-    #     for lib in libs:
-    #         print(f'\"{lib.name}\"')
-    # lib1 = ImageLibrary(name = "dubai library", path = "dubai")
-    # end = time.perf_counter() - start
-    # print(f'\nComparing all hashes took {round(end, 2)} seconds or {round(end/60, 2)} mins.')    
-    # saveLib(lib1)
-    # print(f'Saved {lib1.name} successfully.')
-    # lib1 = libs[0]
-    # print(lib1)
-    # lib1.addFolder("test")
-    # saveLib(lib1)
-    #lib.addFolder("test")
     
